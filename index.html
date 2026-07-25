@@ -20,10 +20,10 @@
 <!-- ====== Meta Pixel (Facebook) ====== -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1668934474311733');
+fbq('init', '1905402543510005');
 fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1668934474311733&ev=PageView&noscript=1" alt=""/></noscript>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1905402543510005&ev=PageView&noscript=1" alt=""/></noscript>
 <!-- ====== End Meta Pixel ====== -->
 
 <style>
@@ -863,9 +863,14 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 
 <script>
 const CONFIG = {
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwIz9RNS2aRQdMjcQRGkpWTei-wsLPObqdjSt1usdVO750NgUd8E1SqfQnSboGyx5vRlA/exec',
-  PIXEL_ID: '1668934474311733',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzFmb5Spp5enrQ2aoDoyo9ayp34TOO6haJ_-ZcpNVzgIiVVqFXXXwOqSWfawYYEzEdPnw/exec',
+  PIXEL_ID: '1905402543510005',
+  WHATSAPP_PHONE: '675XXXXXXXX', // manager WhatsApp: country code + number, digits only (?wa=675... in the URL overrides this)
 };
+{
+  const p = new URLSearchParams(window.location.search).get('wa');
+  if (p) CONFIG.WHATSAPP_PHONE = p.replace(/[^\d]/g, '');
+}
 
 // Reveal
 (function(){
@@ -1139,6 +1144,18 @@ function validateTelegram(input){
     form.style.display = 'none';
     thanksScreen.hidden = false;
     thanksScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Redirect to manager WhatsApp with a prefilled message (+ UTM tags for tracking)
+    if (CONFIG.WHATSAPP_PHONE && !/X/i.test(CONFIG.WHATSAPP_PHONE)) {
+      let msg = 'AGENT! Mi laik kamap MELBET agen long Papua Niugini. Nem: ' + name + '. Fon: ' + phone;
+      const tags = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term']
+        .map(k => utm[k] ? k.replace('utm_','') + ':' + utm[k] : '')
+        .filter(Boolean);
+      if (tags.length) msg += ' [' + tags.join('|') + ']';
+      setTimeout(() => {
+        window.location.href = 'https://wa.me/' + CONFIG.WHATSAPP_PHONE + '?text=' + encodeURIComponent(msg);
+      }, 1200);
+    }
   });
 })();
 </script>
