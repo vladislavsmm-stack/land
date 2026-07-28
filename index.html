@@ -318,7 +318,7 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 .review__stars svg{width:16px;height:16px;color:#FFB200;fill:#FFB200;filter:drop-shadow(0 0 6px rgba(255,178,0,0.4))}
 .review__quote{font-size:15px;line-height:1.9;color:rgba(255,255,255,0.88);margin-bottom:22px;flex:1;font-weight:400}
 .review__quote::before{content:'\201C';display:block;font-size:48px;line-height:0.5;color:#FFB200;margin-bottom:14px;font-family:Georgia,serif;height:24px}
-.review__author{display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.08)}
+.review__author{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap}
 .review__photo{
   width:54px;height:54px;border-radius:50%;object-fit:cover;flex-shrink:0;
   border:2px solid rgba(255,178,0,0.4);box-shadow:0 0 18px rgba(255,138,0,0.3);
@@ -326,8 +326,8 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 }
 .review__info{flex:1;min-width:0}
 .review__name{font-weight:700;font-size:14px;line-height:1.2;margin-bottom:3px}
-.review__role{font-size:12.5px;color:rgba(255,255,255,0.55);line-height:1.3}
-.review__metric{text-align:right;flex-shrink:0;font-weight:700;font-size:15px;color:#FFB200;line-height:1.2;font-family:'Manrope',sans-serif}
+.review__role{font-size:11.5px;color:rgba(255,255,255,0.55);line-height:1.35}
+.review__metric{text-align:right;flex-shrink:0;margin-left:auto;font-weight:700;font-size:14px;color:#FFB200;line-height:1.2;font-family:'Manrope',sans-serif}
 .review__metric span{display:block;font-size:10.5px;color:rgba(255,255,255,0.45);font-weight:500;margin-top:2px;text-transform:uppercase;letter-spacing:0.06em}
 
 /* CTA Form */
@@ -459,6 +459,12 @@ input{font-family:inherit;font-size:inherit;color:inherit}
   *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .reveal{opacity:1;transform:none}
 }
+
+/* Language switch */
+.lang-switch{display:inline-flex;border:1px solid rgba(255,255,255,0.14);border-radius:100px;overflow:hidden;background:rgba(255,255,255,0.04);backdrop-filter:blur(10px);flex-shrink:0}
+.lang-switch__btn{padding:8px 13px;font-size:12px;font-weight:800;letter-spacing:0.05em;color:rgba(255,255,255,0.55);cursor:pointer;transition:background .25s,color .25s;font-family:'Manrope',sans-serif;line-height:1}
+.lang-switch__btn--active{background:linear-gradient(135deg,#FFB200,#FF6A00);color:#0A0A0E}
+@media (max-width:480px){.lang-switch__btn{padding:7px 10px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -478,6 +484,10 @@ input{font-family:inherit;font-size:inherit;color:inherit}
       <span class="logo__sub">Partners</span>
     </a>
     <div class="header__cta">
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
+        <button type="button" class="lang-switch__btn lang-switch__btn--active" data-lang="tpi">TPI</button>
+        <button type="button" class="lang-switch__btn" data-lang="en">EN</button>
+      </div>
       <span class="tag-online lang-en">Manager Online</span>
       <a href="#daftar" class="btn btn--primary">
         <span class="lang-en">Aplai Long Kamap Agen</span>
@@ -726,7 +736,7 @@ input{font-family:inherit;font-size:inherit;color:inherit}
         </div>
         <p class="review__quote">"Pastaim mi pret long putim $50 — mi ting bai mi no inap kisim bek. Long PNG i gat planti giaman skim, olsem na mi wet longpela taim na lukluk tasol. Tasol long namba wan mun stret, taim mi helpim ol pren na wantok bilong mi long opim pleia akaun, mi kisim winim 12 taims moa long dispela fes mani bilong mi. Nau mi sori tasol olsem mi no bin stat moa hariap!"</p>
         <div class="review__author">
-          <img class="review__photo" src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23FFB200'/%3E%3Cstop%20offset='1'%20stop-color='%23FF7A00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20fill='url(%23g)'/%3E%3Ctext%20x='32'%20y='42'%20font-family='Arial'%20font-size='28'%20font-weight='900'%20fill='%23140D00'%20text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" alt="Junior">
+          <img class="review__photo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABgAGADASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAQIDBAUABv/EAC8QAAICAQMCBAQFBQAAAAAAAAECAAMRBCExBRITQWFxIjJRgRQzQpHBBqGx0fH/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQIDBP/EABsRAQEAAgMBAAAAAAAAAAAAAAABAhESITED/9oADAMBAAIRAxEAPwDxQEIEIEYCSooEOI06BlxFLoP1CR32HICyAo4/QfvHolwMh4YQ4mcxI5JklN7owDElYtBdxBiMCGUEcGdiAJiKRJMQEQBhDCBDiBgBOIJ2HJ2EMer81fQxHJtr9J6TS35m74zmS6/RKteBv2zQ6fXhKy6EADnyMTXlbGZAwGBzmTb02keVupQtgqMSnqNIF+Kv9pp6iohzjeRdvcpGOISoyitpvyFkkKp2ZHrOlsykQERjBACIcxRCIAZPpKw9hz5DnPBzIMyfSWBLcN8rcyb4rH1Z1Y1PgIGZRYXK4JOQvkf+TtRp7qOneK1x8QsABj0m6eoaexlXSUlyBhmPltMzqd2ls0lbLrAzdx7h2kD+8ztdGM0yn0/ZpvGa4F2YDB8h9YumdwpFgPEvaPU0BmrsKuAMqw3Er6y1HNr1nftOMSpe9IyxmtqdVhsPdypGfUHMkiovavvuY0uMb6BghgjIohEUQwBhCpwwJiAw5gbV0VdqrW2nYAA9rZOO0E7n1mzrf6dtu0xsru6e4AJLG8/yOd5hdLucZThW2BMt6+/qPhmvxEKlcZ7RnAmfjWdxkazRPpblrS+mw+ZrYkL/ALlanHjOwO3HvOudkUmxiSeTIqcsrHgYIEqIq2J0q6K12UpYcsPOWcykOgnQQBAYQYglumpEXut3b6fSARJW7/KNvMniOorS5EY9zE/aSPaW2GwHHpKrUONStitnOPtALy2Z1vht8pr4+8XWJdSGZLbHBGN95Dc/h6qizPBw3tNS5SgwxwRxmRldVrhNx50VW2t8eZL29i4E0rEC1M2QSfpIbdOa9N3uMFuMxctq4ajOrHbvxJls24OIjAD1hAIX3M0YpvLI3EECEiMRncc/SBO0igubDwvHvJmOT95HpttP7kzmbAz94yBW7mkpIH7SLSg+EGPnvGzkn2gCCtmew2Y7W4m9065ddSBdjxK/hPr9DMNsms9vzKdpN03V/h9erNslnwt7+UjPHca/LPjl29DdVpqa2ttwK1/zPPamxtTcXOQuPhB8hJOq9R/FW+GmfDQ7L/Jmaa2tYtaxOeF8hDDDXdP6fTl1PCB83EAA4OAcyX4iUGABknn0gWpV4EZtrB6LLZGHEGYTwAOTEJAGf29YE//Z" alt="Junior">
           <div class="review__info">
             <div class="review__name lang-en">Junior</div>
             <div class="review__role">Port Moresby · FB Network</div>
@@ -745,7 +755,7 @@ input{font-family:inherit;font-size:inherit;color:inherit}
         </div>
         <p class="review__quote">"Bipo mi bin wok wantaim ol lokal agen. Rausim mani i save kisim longpela taim, ol rul i no klia, na las taim wanpela giaman i bin kisim olgeta mani bilong mi na ranawe. MELBET em i narakain olgeta. Peimen i save kam stret long taim, na pesenel manager bilong mi i save bekim kwiktaim tru long WhatsApp. Long namba wan mun tasol mi kisim winim $1,000, na taim tim bilong mi i go bikpela na mi winim Target, mi kisim Bonus tu antap long en. Em i gutpela winim tru mi no bin ting bai mi lukim!"</p>
         <div class="review__author">
-          <img class="review__photo" src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23FF9E45'/%3E%3Cstop%20offset='1'%20stop-color='%23E85D00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20fill='url(%23g)'/%3E%3Ctext%20x='32'%20y='42'%20font-family='Arial'%20font-size='28'%20font-weight='900'%20fill='%23140D00'%20text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" alt="Maryanne">
+          <img class="review__photo" src="data:image/jpeg;base64,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" alt="Maryanne">
           <div class="review__info">
             <div class="review__name lang-en">Maryanne</div>
             <div class="review__role">Lae · Facebook Group</div>
@@ -764,7 +774,7 @@ input{font-family:inherit;font-size:inherit;color:inherit}
         </div>
         <p class="review__quote">"Long PNG ol man i save pret long painim mani long intenet — planti manmeri i bin bagarap pinis long ol giaman skim. Mi tu mi bin painim hevi wantaim ol narapela kampani bipo. Tasol MELBET em i intenesenel brand i bin stap long 2012 i kam inap nau — olgeta samting i stret na yu inap trastim olgeta. Bihain long klostu wanpela yia long dispela wok, nau inkam bilong mi i winim $5,000 long wanpela mun, na mi bin kamapim agen tim bilong mi yet tu. Mi no bin lukim wanpela Company i save lukautim ol Partner gut olsem dispela."</p>
         <div class="review__author">
-          <img class="review__photo" src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23FFC94D'/%3E%3Cstop%20offset='1'%20stop-color='%23FF8A00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20fill='url(%23g)'/%3E%3Ctext%20x='32'%20y='42'%20font-family='Arial'%20font-size='28'%20font-weight='900'%20fill='%23140D00'%20text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" alt="Nathan">
+          <img class="review__photo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABgAGADASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAgUBAwQGAP/EAC8QAAICAgEDAwIEBgMAAAAAAAECAAMEESESMUEFE1EiYRQycYEGI0JSkcEkodH/xAAXAQADAQAAAAAAAAAAAAAAAAAAAQID/8QAGxEBAQEBAQEBAQAAAAAAAAAAAAERAiExEkH/2gAMAwEAAhEDEQA/AOIEIQRCEkJEruuFY0Btj2EPehv4lOOvUTa/LN2+witw5NUF7HJ6if8AySqsewJm1VU+Bqaq6QygAcRftU4L0pu7hT3hB2Vumwa+8f4mAbDtgQszeq4Ko30DiVNs2i8yFhgmeXfT0nuOJ4wQEwTCgmAGIQgCEIwi0/ym154gggKB8QrD9BlRZQeQTI6VGmhtkCOsKtWrHGyIkxrKur6uP9RrReiE62V+0j+tZ8dFjaFQBUCZPUKA1Lsf6Zmq9XrLe1Vjlj2GzrcLNyX/AAxSytkY9wZtOpn1GeubsAW5xAMu9my92atCR5Pga+TKDEixEGEZECSJMESYwiwErwfIg6tPK8D5A3DPYyxHrRd9zI6XxNVXDq0ygjjnYjv0jFqtwWNqt1HhSToROHqsBa60KR2XUf4Qwz6edZXTaTwqqW0Pk6kb76055K6cK+jOHve4oBP1rz+kZrRYKrGsuaxfHUNGaNL7AeotYB2d0KFv2MkZGK+JYH2loHAMrfTyQtqpyX9PYhV/CkupJ79YG4qPfiMXcV+nEjIYs7sFq3wo8n9YuMqRl3fkDBMKCY0PCEIG5IMYGJnHDEdz4lwMqtXTdXgxU4mmv3u6uxB5Aj/G9O6awzU2EtoBK7V39jocxDU5UgoSCDHeB6j6l7mqWAJGtgcyP605zGn1H8ZjIRWt44BK2FWA+x+8X3fzel30CNb15jPPusrwwLCNsdH53MFijo0vLkbPwI/ov0vs/O36wDJPeCZbJEgyYMQQDJ3A3JGydAbP2jCxQWOhyTKbjrIevfCjU30UtWpdxpjwB8TDn1lL1uH5XGv3Ej9bcPFIZkbYmivOtr01ZKkSusdUJatPow2KytYty832+ssVQ723aNhWEx988iU4KM+P0ngCa8tlroAPgRyqnPhGR11tYAB0WGttf9H9/wDUrM3fw6Uvz8im5Q1V29g/I7TTf6QrZT0U2BHHKh+zCNnhMZBmrIwMrH311EgeV5EyQJoxMC7JHWfor/uPn9IyoxqqButNn+49zNyVlz9X5R2EC8dDb1xM7bVSYwL9aP8AZiJUtC5StiudF+UJ8N4muurp93XYvsf4EotU12Bl7gyflMoSt06tqQVOiPgy+sGwbA5EcZOOnqge/AdDfWQt6HjZ+f8AUx42LdjZG76ygHcETRUXY1xrAUnQMD1S07Yb7CHmBGXdS60e+5mu/wCZk+2pIBGzrzqEV14D0ndFtDnhvdBI/edNkVMPXFY/l9nY/wAxRZTWMZMprBWFTz3J14HzGH8NXnM9JWzJsL20O1fUx2dHREcZLLQxsPTs6+Jksxqcpeq2pCT/AFLwYwyyXApqGuo6ldqBWSlOwEA//9k=" alt="Nathan">
           <div class="review__info">
             <div class="review__name lang-en">Nathan</div>
             <div class="review__role">Port Moresby · Agent Network</div>
@@ -806,12 +816,6 @@ input{font-family:inherit;font-size:inherit;color:inherit}
           </div>
           <div class="form__error" id="phoneError"></div>
           <div class="form__operator form__operator--idle" id="phoneOperator">Putim namba bilong sekim opereta</div>
-        </div>
-
-        <div class="form__row">
-          <label class="form__label" for="telegram">Facebook Nem (Messenger)</label>
-          <input class="form__input" id="telegram" name="telegram" type="text" placeholder="Nem bilong yu long Facebook" autocomplete="off" required="">
-          <div class="form__error" id="telegramError"></div>
         </div>
 
         <button type="submit" class="btn btn--primary btn--lg btn--block" id="submitBtn">
@@ -862,6 +866,7 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 </footer>
 
 <script>
+function tr(tpi, en){ return (window.__lang === 'en' && en) ? en : tpi; }
 const CONFIG = {
   APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzFmb5Spp5enrQ2aoDoyo9ayp34TOO6haJ_-ZcpNVzgIiVVqFXXXwOqSWfawYYEzEdPnw/exec',
   PIXEL_ID: '1905402543510005',
@@ -975,22 +980,12 @@ function validatePhone(input){
   const digits = getRawDigits(input);
   // PNG mobile: starts with 7 (or 68), 8 digits total
   if(!/^(7\d{7}|68\d{6})$/.test(digits)){
-    return { valid:false, error:'PNG fon namba i mas stat long 7 na i gat 8 dijit olgeta (eksampel: 7123 4567)' };
+    return { valid:false, error: tr('PNG fon namba i mas stat long 7 na i gat 8 dijit olgeta (eksampel: 7123 4567)', 'A PNG phone number must start with 7 and contain 8 digits (example: 7123 4567)') };
   }
   return { valid:true, operator: detectOperator(digits) };
 }
 
 // Facebook / Messenger name validation
-function normalizeTelegram(input){
-  return String(input || '').trim().replace(/^@+/, '');
-}
-function validateTelegram(input){
-  const s = String(input || '').trim().replace(/^@+/, '');
-  if(s.length < 3) return { valid:false, error:'Putim Facebook nem bilong yu (3 leta o moa)' };
-  if(s.length > 64) return { valid:false, error:'Facebook nem i no ken winim 64 leta' };
-  return { valid:true };
-}
-
 // Form
 (function(){
   const form = document.getElementById('leadForm');
@@ -998,10 +993,8 @@ function validateTelegram(input){
   const phoneInput = document.getElementById('phone');
   const phoneWrap = document.getElementById('phoneWrap');
   const phoneOperator = document.getElementById('phoneOperator');
-  const telegramInput = document.getElementById('telegram');
   const nameError = document.getElementById('nameError');
   const phoneError = document.getElementById('phoneError');
-  const telegramError = document.getElementById('telegramError');
   const submitBtn = document.getElementById('submitBtn');
   const submitText = document.getElementById('submitText');
   const formStatus = document.getElementById('formStatus');
@@ -1010,11 +1003,6 @@ function validateTelegram(input){
   nameInput.addEventListener('input', () => {
     nameInput.classList.remove('form__input--error');
     nameError.textContent = '';
-  });
-
-  telegramInput.addEventListener('input', () => {
-    telegramInput.classList.remove('form__input--error');
-    telegramError.textContent = '';
   });
 
   phoneInput.addEventListener('input', (e) => {
@@ -1028,7 +1016,7 @@ function validateTelegram(input){
     }
 
     if(digits.length === 0){
-      phoneOperator.textContent = 'Putim namba bilong sekim opereta';
+      phoneOperator.textContent = tr('Putim namba bilong sekim opereta', 'Enter your number to detect the operator');
       phoneOperator.className = 'form__operator form__operator--idle';
     } else if(digits.length < 2){
       phoneOperator.textContent = '...';
@@ -1066,12 +1054,11 @@ function validateTelegram(input){
 
     const name = nameInput.value.trim();
     const phoneRaw = phoneInput.value.trim();
-    const telegramRaw = telegramInput.value.trim();
 
     let valid = true;
     if(name.length < 2){
       nameInput.classList.add('form__input--error');
-      nameError.textContent = 'Putim ful nem bilong yu (2 leta o moa)';
+      nameError.textContent = tr('Putim ful nem bilong yu (2 leta o moa)', 'Enter your full name (2 letters or more)');
       valid = false;
     }
 
@@ -1082,21 +1069,15 @@ function validateTelegram(input){
       valid = false;
     }
 
-    const telegramCheck = validateTelegram(telegramRaw);
-    if(!telegramCheck.valid){
-      telegramInput.classList.add('form__input--error');
-      telegramError.textContent = telegramCheck.error;
-      valid = false;
-    }
     if(!valid) return;
 
     const phone = normalizePhone(phoneRaw);
-    const telegram = normalizeTelegram(telegramRaw);
+    const telegram = '';
     const leadId = genUUID();
     const utm = getUTMParams();
 
     submitBtn.disabled = true;
-    submitText.textContent = 'I salim nau...';
+    submitText.textContent = tr('I salim nau...', 'Sending...');
 
     // Fire Pixel Lead event
     if(typeof fbq === 'function'){
@@ -1157,6 +1138,129 @@ function validateTelegram(input){
       }, 1200);
     }
   });
+})();
+</script>
+
+<script>
+// ===== Language switch (TPI / EN) =====
+(function(){
+  const EN = [
+    ['.eyebrow', 'MELBET Agent Program · Papua New Guinea 🇵🇬'],
+    ['.hero__title', 'Partner with a big global brand and build <span class="accent">solid income every month</span>'],
+    ['.hero__lead', '<strong>MELBET</strong> is an international Bookmaker successfully operating in over <strong>100 countries</strong>, with many years in the sports betting and gaming business. We pay agent commissions every month in <strong>USD</strong> — straight and fully transparent.<br><br>We are looking for <strong>agent partners</strong> who can bring new players to the MELBET Platform and help them open accounts, deposit and withdraw.'],
+    ['.hero__actions .btn--primary', 'Apply Now to Become an Agent <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>'],
+    ['.hero__actions .btn--ghost', 'See More Details'],
+    ['.hero__note', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Takes only 2 minutes to apply · A manager will contact you on WhatsApp'],
+    ['.header__cta .btn--primary .lang-en', 'Apply to Become an Agent'],
+    ['.stat:nth-child(1) .stat__label', 'Years in the market'],
+    ['.stat:nth-child(2) .stat__label', 'Users worldwide'],
+    ['.stat:nth-child(3) .stat__label', 'Countries'],
+    ['.stat:nth-child(4) .stat__label', 'Support around the clock'],
+    ['section:nth-of-type(4) .section__eyebrow', 'How the system works'],
+    ['section:nth-of-type(4) .section__title', 'Start earning in just <span class="accent">(4) easy steps</span>'],
+    ['section:nth-of-type(4) .section__lead', "An agent's work is very simple — you can start within 2 minutes."],
+    ['.step:nth-child(1) .step__title', 'Find New Players'],
+    ['.step:nth-child(1) .step__text', 'Find people who love sports and games. Offer it to your friends and family, or to your Followers/Audience on Facebook, TikTok and WhatsApp.'],
+    ['.step:nth-child(2) .step__title', 'Open Accounts for Them'],
+    ['.step:nth-child(2) .step__text', 'Using your personal Referral Link, open player accounts on the MELBET Platform.'],
+    ['.step:nth-child(3) .step__title', 'Earn Commission'],
+    ['.step:nth-child(3) .step__text', 'Every time your players bet, commission money lands in your account <strong>automatically</strong>.'],
+    ['.step:nth-child(4) .step__title', 'Grow Your Income'],
+    ['.step:nth-child(4) .step__text', 'More Active Users = more monthly income. Your earnings keep <strong>growing</strong> with no upper limit.'],
+    ['section:nth-of-type(5) .section__eyebrow', 'Income example'],
+    ['section:nth-of-type(5) .section__title', 'How much can you <span class="accent">earn</span>?'],
+    ['.earnings__formula .earnings__chip:nth-child(1) span:last-child', 'Active players'],
+    ['.earnings__formula .earnings__chip:nth-child(3) span:last-child', 'Betting per month'],
+    ['.earnings__label', 'It takes very <strong>little</strong> time — you receive easy <strong>Passive Income</strong> every month.<br>As the number of players under you grows, your income grows with it.'],
+    ['#advantages .section__eyebrow', 'What you will get'],
+    ['#advantages .section__title', 'Why do agents choose <span class="accent">MELBET</span>?'],
+    ['#advantages .section__lead', 'Clear rules, modern tech tools, and a team standing by to help your business grow at all times.'],
+    ['.advantage:nth-child(1) .advantage__title', 'Clear Commission (7%)'],
+    ['.advantage:nth-child(1) .advantage__text', 'You earn <strong>5%</strong> of player Deposits + <strong>2%</strong> of Withdrawals as your income.'],
+    ['.advantage:nth-child(2) .advantage__tag', 'Capital · $50'],
+    ['.advantage:nth-child(2) .advantage__title', 'Start with Just $50'],
+    ['.advantage:nth-child(2) .advantage__text', 'You only need <strong>$50</strong> to start. (This balance stays in your agent account.)'],
+    ['.advantage:nth-child(3) .advantage__title', 'Easy-to-Use App'],
+    ['.advantage:nth-child(3) .advantage__text', 'See your player list, payments, balance and all reports in <strong>one place</strong> on your phone.'],
+    ['.advantage:nth-child(4) .advantage__title', 'Your Personal Manager'],
+    ['.advantage:nth-child(4) .advantage__text', 'From day one you get your own <strong>personal manager</strong> who answers your questions and guides you through every step.'],
+    ['.advantage:nth-child(5) .advantage__tag', 'Work anywhere'],
+    ['.advantage:nth-child(5) .advantage__title', 'No Office Needed'],
+    ['.advantage:nth-child(5) .advantage__text', 'No office, no schedule. Just a phone and the internet — <strong>you choose</strong> when and where you work.'],
+    ['.advantage:nth-child(6) .advantage__tag', 'Awards'],
+    ['.advantage:nth-child(6) .advantage__title', 'International Awards'],
+    ['.advantage:nth-child(6) .advantage__text', 'Best Affiliate Program 2025 and Affiliate Company of the Year 2026 — MELBET has <strong>won</strong> these awards, a strong brand you can trust.'],
+    ['section:nth-of-type(7) .section__eyebrow', 'What you need to start'],
+    ['section:nth-of-type(7) .section__title', 'You only need <span class="accent">(3) simple things</span>'],
+    ['section:nth-of-type(7) .section__lead', 'There is no complicated process to become an agent.'],
+    ['.requirement:nth-child(1) .requirement__text', 'A <strong>bank account</strong> or <strong>Online Wallet</strong> for payments'],
+    ['.requirement:nth-child(2) .requirement__text', 'A first deposit of <strong>$50</strong> (after your agent account is approved, you can <strong>withdraw it back</strong>.)'],
+    ['.requirement:nth-child(3) .requirement__text', 'You must properly <strong>verify</strong> your account.'],
+    ['section:nth-of-type(8) .section__eyebrow', 'What our agents say'],
+    ['section:nth-of-type(8) .section__title', 'Agents already working with us'],
+    ['section:nth-of-type(8) .section__lead', 'Real stories from Papua New Guinea agents'],
+    ['.review:nth-child(1) .review__quote', '"At first I was afraid to put in $50 — I thought I would never get it back. There are plenty of scams in PNG, so for a long time I just waited and watched. But in my very first month, helping my friends and family open player accounts, I earned back 12 times my starting money. My only regret now is not starting sooner!"'],
+    ['.review:nth-child(1) .review__metric', '×12<span>income growth</span>'],
+    ['.review:nth-child(2) .review__quote', '"I used to work with local agents before. Withdrawals took forever, the rules were never clear, and one time a scammer ran off with all my money. MELBET is completely different. Payments always arrive on time, and my personal manager replies instantly on WhatsApp. In my first month alone I made over $1,000, and when my team grew and I hit the Target, I received a Bonus on top. A better win than I ever expected!"'],
+    ['.review:nth-child(2) .review__metric', '$1000+<span>first month</span>'],
+    ['.review:nth-child(3) .review__quote', '"In PNG people are afraid of earning money online — too many have been burned by scams. I had my share of trouble with other companies too. But MELBET is an international brand operating since 2012 — everything is transparent and fully trustworthy. After almost a year in this business my income is now over $5,000 a month, and I have built my own agent team. I have never seen a Company take care of its Partners like this one."'],
+    ['.review:nth-child(3) .review__metric', '$5000+<span>per month</span>'],
+    ['.cta-card__title', 'Ready to become a MELBET Agent? <br><span class="accent">Send your application now</span>'],
+    ['.cta-card__text', 'Fill in the form below. Our manager will contact you directly on WhatsApp within just a few minutes.'],
+    ['label[for="name"]', 'Full Name'],
+    ['label[for="phone"]', 'Phone Number (WhatsApp)'],
+    ['#submitText', 'Apply Now to Become an Agent'],
+    ['.form__hint', 'By sending the application you agree that a manager contacts you on WhatsApp.'],
+    ['.thanks-screen__title', 'Thank You!'],
+    ['.thanks-screen__text', 'We have received your application.<br>A manager will contact you on WhatsApp shortly.'],
+    ['.footer__brand-text', 'Agent Program · Papua New Guinea'],
+    ['.footer__disclaim > div:last-child', 'This website is intended for persons aged 18 and over only. Betting can be addictive — please play responsibly. This agent program is intended for Affiliates and Media Buyers only. The information on this page is not a public offer.'],
+  ];
+  const EN_PLACEHOLDERS = [
+    ['#name', 'Your name'],
+  ];
+
+  window.__lang = 'tpi';
+
+  function apply(lang){
+    window.__lang = lang;
+    document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'tpi');
+    EN.forEach(([sel, en]) => {
+      document.querySelectorAll(sel).forEach(el => {
+        if(!el.dataset.tpiHtml) el.dataset.tpiHtml = el.innerHTML;
+        el.innerHTML = (lang === 'en') ? en : el.dataset.tpiHtml;
+      });
+    });
+    EN_PLACEHOLDERS.forEach(([sel, en]) => {
+      document.querySelectorAll(sel).forEach(el => {
+        if(!el.dataset.tpiPh) el.dataset.tpiPh = el.getAttribute('placeholder') || '';
+        el.setAttribute('placeholder', (lang === 'en') ? en : el.dataset.tpiPh);
+      });
+    });
+    // Phone operator hint is generated by the form script; refresh it while idle
+    const op = document.getElementById('phoneOperator');
+    if(op && op.classList.contains('form__operator--idle')){
+      op.textContent = (lang === 'en')
+        ? 'Enter your number to detect the operator'
+        : 'Putim namba bilong sekim opereta';
+    }
+    document.querySelectorAll('.lang-switch__btn').forEach(b => {
+      b.classList.toggle('lang-switch__btn--active', b.dataset.lang === lang);
+    });
+    try { localStorage.setItem('lang', lang); } catch(e){}
+  }
+
+  document.getElementById('langSwitch').addEventListener('click', (e) => {
+    const btn = e.target.closest('.lang-switch__btn');
+    if(btn) apply(btn.dataset.lang);
+  });
+
+  let initial = 'tpi';
+  try {
+    const q = new URLSearchParams(location.search).get('lang');
+    initial = q || localStorage.getItem('lang') || 'tpi';
+  } catch(e){}
+  if(initial === 'en') apply('en');
 })();
 </script>
 </body>
