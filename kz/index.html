@@ -465,6 +465,116 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 .lang-switch__btn{padding:8px 13px;font-size:12px;font-weight:800;letter-spacing:0.05em;color:rgba(255,255,255,0.55);cursor:pointer;transition:background .25s,color .25s;font-family:'Manrope',sans-serif;line-height:1}
 .lang-switch__btn--active{background:linear-gradient(135deg,#FFB200,#FF6A00);color:#0A0A0E}
 @media (max-width:480px){.lang-switch__btn{padding:7px 10px;font-size:11px}}
+
+/* ====== CTA bonus pill ====== */
+.cta-card__bonus{display:inline-flex;align-items:center;gap:14px;margin-top:28px;padding:12px 20px;border-radius:100px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.1);font-size:13.5px;color:rgba(255,255,255,0.75);text-align:left;line-height:1.45}
+.cta-card__bonus svg{width:16px;height:16px;color:#FFB200;flex-shrink:0}
+
+/* ====== Quiz Modal ====== */
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+@keyframes quizIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes stepIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+
+.quiz-overlay{position:fixed;inset:0;z-index:100;
+  background:rgba(4,4,8,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  display:none;align-items:flex-start;justify-content:center;
+  padding:24px 16px;overflow-y:auto;animation:overlayIn .3s ease}
+.quiz-overlay.open{display:flex}
+.quiz{width:100%;max-width:680px;margin:auto;
+  background:linear-gradient(180deg,#14141C 0%,#0C0C12 100%);
+  border:1px solid rgba(255,178,0,0.18);border-radius:28px;
+  box-shadow:0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(255,138,0,0.08);
+  overflow:hidden;position:relative;animation:quizIn .35s cubic-bezier(.2,.9,.3,1)}
+.quiz__head{display:flex;align-items:center;gap:16px;
+  padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02)}
+.quiz__progress{flex:1;height:6px;border-radius:100px;background:rgba(255,255,255,0.08);overflow:hidden;position:relative}
+.quiz__progress-bar{height:100%;background:linear-gradient(90deg,#FFB200,#FF6A00);border-radius:100px;transition:width .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 12px rgba(255,138,0,0.5)}
+.quiz__step-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.6);flex-shrink:0;letter-spacing:0.05em}
+.quiz__step-num strong{color:#FFB200;font-weight:800}
+.quiz__close{width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
+  display:grid;place-items:center;color:rgba(255,255,255,0.7);
+  flex-shrink:0;transition:all .2s}
+.quiz__close:hover{background:rgba(255,77,77,0.15);border-color:rgba(255,77,77,0.4);color:#fff}
+.quiz__close svg{width:16px;height:16px}
+.quiz__body{padding:44px 40px 32px}
+.quiz__step{animation:stepIn .35s ease}
+.quiz__q{font-size:clamp(20px,2.8vw,28px);font-weight:800;line-height:1.25;letter-spacing:-0.01em;text-align:center;margin-bottom:12px;color:#fff}
+.quiz__sub{font-size:15px;line-height:1.55;color:rgba(255,255,255,0.65);text-align:center;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
+.quiz__options{display:grid;gap:12px}
+.quiz__options--2{grid-template-columns:repeat(2,1fr)}
+.quiz__options--3{grid-template-columns:repeat(3,1fr)}
+.quiz__opt{display:flex;align-items:center;gap:14px;
+  padding:16px 20px;border-radius:14px;
+  background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.10);
+  cursor:pointer;transition:all .2s;text-align:left;font-family:inherit;
+  color:#fff;font-size:15px;font-weight:500;line-height:1.3}
+.quiz__opt:hover{background:rgba(255,178,0,0.06);border-color:rgba(255,178,0,0.35)}
+.quiz__opt.selected{background:rgba(255,178,0,0.12);border-color:#FFB200;box-shadow:0 0 0 3px rgba(255,178,0,0.15)}
+.quiz__radio{width:20px;height:20px;border-radius:50%;
+  border:2px solid rgba(255,255,255,0.25);
+  flex-shrink:0;position:relative;transition:all .2s}
+.quiz__opt.selected .quiz__radio{border-color:#FFB200}
+.quiz__opt.selected .quiz__radio::after{content:'';position:absolute;inset:3px;border-radius:50%;
+  background:linear-gradient(135deg,#FFB200,#FF6A00);
+  box-shadow:0 0 8px rgba(255,178,0,0.6)}
+.quiz__input-wrap{margin-top:8px}
+.quiz__input{width:100%;padding:18px 22px;border-radius:14px;
+  background:rgba(0,0,0,0.35);border:1.5px solid rgba(255,255,255,0.12);
+  color:#fff;font-size:16px;font-weight:500;font-family:inherit;
+  transition:all .25s;outline:none}
+.quiz__input::placeholder{color:rgba(255,255,255,0.35)}
+.quiz__input:focus{border-color:rgba(255,178,0,0.6);background:rgba(0,0,0,0.5);box-shadow:0 0 0 4px rgba(255,178,0,0.1)}
+.quiz__input--error{border-color:#ff4d4d;box-shadow:0 0 0 4px rgba(255,77,77,0.1)}
+.quiz__err{font-size:13px;color:#ff4d4d;font-weight:500;margin-top:6px;min-height:14px}
+.quiz__actions{display:flex;gap:12px;margin-top:28px;justify-content:space-between;align-items:center}
+.quiz__back{display:inline-flex;align-items:center;gap:6px;padding:12px 18px;
+  border-radius:12px;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);
+  font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.quiz__back:hover{background:rgba(255,255,255,0.08);color:#fff}
+.quiz__back svg{width:14px;height:14px}
+.quiz__next{flex:1}
+.quiz__form-grid{display:flex;flex-direction:column;gap:14px}
+.quiz__field{display:flex;flex-direction:column;gap:6px;text-align:left}
+.quiz__label{font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.6)}
+.quiz__operator{font-size:12.5px;font-weight:600;margin-top:2px;display:flex;align-items:center;gap:6px;min-height:18px;transition:color .2s}
+.quiz__operator--ok{color:#86efac}
+.quiz__operator--warn{color:#fbbf24}
+.quiz__operator--idle{color:rgba(255,255,255,0.42)}
+.quiz__chans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quiz__chan{display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 16px;border-radius:14px;
+  background:rgba(0,0,0,0.3);border:1.5px solid rgba(255,255,255,0.12);
+  color:#fff;font-size:15px;font-weight:700;font-family:inherit;
+  cursor:pointer;transition:all .2s;position:relative}
+.quiz__chan svg{width:22px;height:22px;flex-shrink:0}
+.quiz__chan:hover{border-color:rgba(255,178,0,0.35)}
+.quiz__chan.selected{border-color:#FFB200;background:rgba(255,178,0,0.10);box-shadow:0 0 0 3px rgba(255,178,0,0.12)}
+.quiz__chan.selected::after{content:'✓';position:absolute;top:6px;right:9px;
+  width:18px;height:18px;border-radius:50%;display:grid;place-items:center;
+  font-size:11px;font-weight:800;color:#0A0A0E;
+  background:linear-gradient(135deg,#FFB200,#FF6A00)}
+
+.quiz__thanks{text-align:center;padding:24px 0}
+.quiz__thanks-ico{width:76px;height:76px;margin:0 auto 22px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:38px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,#2ECC71,#27AE60);border-radius:50%;
+  box-shadow:0 0 40px rgba(46,204,113,.45)}
+.quiz__thanks-title{font-size:26px;font-weight:800;margin-bottom:14px;color:#fff;line-height:1.2}
+.quiz__thanks-text{color:rgba(255,255,255,0.75);font-size:15.5px;line-height:1.6;margin-bottom:8px}
+.quiz__thanks-text strong{color:#fff}
+.quiz__thanks-hint{font-size:13px;color:rgba(255,255,255,0.45);margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.08);line-height:1.5}
+
+@media (max-width:640px){
+  .quiz__body{padding:32px 22px 24px}
+  .quiz__q{font-size:20px}
+  .quiz__sub{font-size:14px;margin-bottom:24px}
+  .quiz__options--2,.quiz__options--3{grid-template-columns:1fr}
+  .cta-card__bonus{gap:10px;font-size:12.5px;padding:12px 16px}
+}
 </style>
 </head>
 <body>
@@ -791,49 +901,20 @@ input{font-family:inherit;font-size:inherit;color:inherit}
   <div class="container">
     <div class="cta-card reveal">
       <h2 class="cta-card__title">
-        MELBET агенті болуға дайынсыз ба? <br>
-        <span class="accent">Өтінішіңізді дәл қазір жіберіңіз</span>
+        Бастауға дайынсыз ба?<br><span class="accent">Өтінішті дәл қазір қалдырыңыз!</span>
       </h2>
       <p class="cta-card__text">
-        Төмендегі форманы толтырыңыз. Менеджеріміз бірнеше минут ішінде WhatsApp арқылы тікелей хабарласады.
+        Қысқа сауалнаманы толтырыңыз — менеджеріміз бірнеше минут ішінде WhatsApp немесе Telegram арқылы хабарласып, ынтымақтастық шарттарын талқылайды.
       </p>
 
-      <form class="form" id="leadForm" novalidate="">
-        <div class="form__row">
-          <label class="form__label" for="name">Толық аты-жөні</label>
-          <input class="form__input" id="name" name="name" type="text" placeholder="Атыңыз" autocomplete="name" required="">
-          <div class="form__error" id="nameError"></div>
-        </div>
+      <button type="button" class="btn btn--primary btn--xl" data-open-quiz>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .1 0 .7-.2 1.3Z"/></svg>
+        <span>Өтінім қалдыру</span>
+      </button>
 
-        <div class="form__row">
-          <label class="form__label" for="phone">Телефон нөмірі (WhatsApp)</label>
-          <div class="phone-input" id="phoneWrap">
-            <div class="phone-input__prefix">
-              <span class="phone-input__flag">🇰🇿</span>
-              <span>+7</span>
-            </div>
-            <input class="phone-input__field" id="phone" name="phone" type="tel" placeholder="700 000 00 00" autocomplete="tel" inputmode="numeric" maxlength="13" required="">
-          </div>
-          <div class="form__error" id="phoneError"></div>
-          <div class="form__operator form__operator--idle" id="phoneOperator">Операторды тексеру үшін нөмірді енгізіңіз</div>
-        </div>
-
-        <button type="submit" class="btn btn--primary btn--lg btn--block" id="submitBtn">
-          <span id="submitText">Қазір агент болуға өтінім беру</span>
-        </button>
-
-        <div class="form__status" id="formStatus"></div>
-
-        <p class="form__hint">
-          Өтінім жібере отырып, менеджердің сізбен WhatsApp арқылы байланысуына келісім бересіз.
-        </p>
-      </form>
-
-      <!-- Thank You Screen -->
-      <div class="thanks-screen" id="thanksScreen" hidden="">
-        <div class="thanks-screen__ico">✓</div>
-        <h2 class="thanks-screen__title">Рақмет!</h2>
-        <p class="thanks-screen__text">Өтінішіңізді қабылдап алдық.<br>Менеджер жақын арада WhatsApp арқылы хабарласады.</p>
+      <div class="cta-card__bonus">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>Жаңа серіктестерге бонус: алғашқы 30 күнде жоғарылатылған RS.</span>
       </div>
     </div>
   </div>
@@ -865,6 +946,19 @@ input{font-family:inherit;font-size:inherit;color:inherit}
   </div>
 </footer>
 
+<!-- ====== Quiz Modal ====== -->
+<div class="quiz-overlay" id="quizOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+  <div class="quiz">
+    <div class="quiz__head">
+      <div class="quiz__progress"><div class="quiz__progress-bar" id="quizProgress" style="width:20%"></div></div>
+      <div class="quiz__step-num"><strong id="quizStepNum">1</strong>/5</div>
+      <button type="button" class="quiz__close" id="quizClose" aria-label="Жабу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="quiz__body" id="quizBody"></div>
+  </div>
+</div>
+
+
 <script>
 
 function tr(kk, ru){ return (window.__lang === 'ru' && ru) ? ru : kk; }
@@ -873,11 +967,14 @@ const CONFIG = {
   APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzFmb5Spp5enrQ2aoDoyo9ayp34TOO6haJ_-ZcpNVzgIiVVqFXXXwOqSWfawYYEzEdPnw/exec',
   PIXEL_ID: '1905402543510005',
   WHATSAPP_PHONE: '77XXXXXXXXX', // manager WhatsApp: country code + number, digits only (?wa=77... in the URL overrides this)
+  TELEGRAM_USERNAME: 'melbet_manager_XXX', // manager Telegram handle, no @ (?tg=name in the URL overrides this)
   GEO: 'KZ',
 };
 {
   const p = new URLSearchParams(window.location.search).get('wa');
   if (p) CONFIG.WHATSAPP_PHONE = p.replace(/[^\d]/g, '');
+  const t = new URLSearchParams(window.location.search).get('tg');
+  if (t) CONFIG.TELEGRAM_USERNAME = t.replace(/^@/, '');
 }
 
 // Reveal
@@ -967,101 +1064,196 @@ function validatePhone(v){
   return { valid:true };
 }
 
-// Form
+window.QUIZ_I18N = {"second": "ru", "flag": "🇰🇿", "dial": "+7", "phonePh": "700 000 00 00", "phoneLen": 10, "exp": {"q": ["Сізде серіктес ретінде жұмыс тәжірибесі бар ма?", "Есть ли у вас опыт работы партнёром?"], "sub": ["Ынтымақтастықты бастау үшін тәжірибе немесе үлкен аудитория қажет.", "Чтобы начать сотрудничество, нужен опыт или большая аудитория."], "options": [{"v": "yes", "label": ["Иә", "Да"]}, {"v": "no", "label": ["Жоқ", "Нет"]}]}, "platform": {"q": ["Қай әлеуметтік желілерде үлкен аудиторияңыз бар?", "В каких соцсетях у вас большая аудитория?"], "options": [{"v": "instagram", "label": ["Instagram", "Instagram"]}, {"v": "tiktok", "label": ["TikTok", "TikTok"]}, {"v": "youtube", "label": ["YouTube", "YouTube"]}, {"v": "facebook", "label": ["Facebook", "Facebook"]}, {"v": "telegram", "label": ["Telegram", "Telegram"]}, {"v": "other", "label": ["Басқа әлеуметтік желі", "Другая соцсеть"]}, {"v": "site", "label": ["Веб-сайт", "Веб-сайт"]}, {"v": "none", "label": ["Мұндай бетім жоқ", "Такой страницы нет"]}]}, "subs": {"q": ["Қанша жазылушыңыз бар?", "Сколько у вас подписчиков?"], "options": [{"v": "<5k", "label": ["5 000-ға дейін", "До 5 000"]}, {"v": "5-10k", "label": ["5 000 – 10 000", "5 000 – 10 000"]}, {"v": "10-50k", "label": ["10 000 – 50 000", "10 000 – 50 000"]}, {"v": "50-200k", "label": ["50 000 – 200 000", "50 000 – 200 000"]}, {"v": "200k+", "label": ["200 000-нан астам", "Более 200 000"]}]}, "traffic": {"q": ["Сайтыңыздың айлық трафигі қандай?", "Какая месячная посещаемость сайта?"], "sub": ["Бір айда сайтыңызға кіретін қолданушылардың шамамен саны", "Примерное число пользователей, посещающих сайт за месяц"], "options": [{"v": "<5k", "label": ["5 000-ға дейін", "До 5 000"]}, {"v": "5-20k", "label": ["5 000 – 20 000", "5 000 – 20 000"]}, {"v": "20-100k", "label": ["20 000 – 100 000", "20 000 – 100 000"]}, {"v": "100-500k", "label": ["100 000 – 500 000", "100 000 – 500 000"]}, {"v": "500k-1m", "label": ["500 000 – 1 000 000", "500 000 – 1 000 000"]}, {"v": "1m+", "label": ["1 000 000-нан астам", "Более 1 000 000"]}]}, "link": {"q": ["Әлеуметтік желіңізге сілтемені көрсетіңіз", "Укажите ссылку на вашу соцсеть"], "sub": ["Парақшаңызға сілтеме (@username, URL немесе арна атауы)", "Ссылка на вашу страницу (@username, URL или название канала)"], "ph": ["Мысалы: @менің_арнам немесе instagram.com/менің_бетім", "Например: @мой_канал или instagram.com/моя_страница"], "err": ["Сілтемені немесе username-ді көрсетіңіз", "Укажите ссылку или username"]}, "contacts": {"q": ["Байланыс деректеріңізді қалдырыңыз", "Оставьте свои контакты"], "sub": ["Менеджеріміз сізбен таңдаған мессенджеріңіз арқылы байланысады", "Наш менеджер свяжется с вами в выбранном мессенджере"], "name": ["Атыңыз", "Ваше имя"], "namePh": ["Атыңызды енгізіңіз", "Введите ваше имя"], "nameErr": ["Толық атыңызды жазыңыз (кемінде 2 әріп)", "Укажите ваше имя (минимум 2 буквы)"], "phone": ["Телефон нөмірі", "Номер телефона"], "opIdle": ["Операторды анықтау үшін нөмірді енгізіңіз", "Введите номер, чтобы определить оператора"], "channel": ["Сізге қай мессенджерге жазайық?", "В каком мессенджере вам написать?"]}, "ui": {"back": ["Артқа", "Назад"], "next": ["Жалғастыру", "Продолжить"], "submit": ["Өтінім жіберу", "Отправить заявку"], "sending": ["Жіберілуде...", "Отправляем..."]}, "thanks": {"title": ["Рақмет!", "Спасибо!"], "text": ["Өтінішіңіз қабылданды. Менеджер жақын арада <strong>{m}</strong> арқылы хабарласады.", "Ваша заявка принята. Менеджер свяжется с вами в <strong>{m}</strong> в ближайшее время."], "hint": ["Сізді {m}-ке бағыттап жатырмыз…", "Перенаправляем вас в {m}…"]}, "waMsg": ["AGENT! Мен Қазақстанда MELBET агенті болғым келеді. Атым: ", "AGENT! Хочу стать агентом MELBET в Казахстане. Имя: "]};
+
+// ===== Quiz (multi-step application) =====
 (function(){
-  const form = document.getElementById('leadForm');
-  const nameInput = document.getElementById('name');
-  const phoneInput = document.getElementById('phone');
-  const phoneWrap = document.getElementById('phoneWrap');
-  const phoneOperator = document.getElementById('phoneOperator');
-  const nameError = document.getElementById('nameError');
-  const phoneError = document.getElementById('phoneError');
-  const submitBtn = document.getElementById('submitBtn');
-  const submitText = document.getElementById('submitText');
-  const thanksScreen = document.getElementById('thanksScreen');
+  const T = window.QUIZ_I18N;
+  const L2 = T.second;                     // secondary language code
+  const s = (pair) => (window.__lang === L2 ? pair[1] : pair[0]);
 
-  nameInput.addEventListener('input', () => {
-    nameInput.classList.remove('form__input--error');
-    nameError.textContent = '';
-  });
+  const overlay   = document.getElementById('quizOverlay');
+  const bodyEl    = document.getElementById('quizBody');
+  const progress  = document.getElementById('quizProgress');
+  const stepNum   = document.getElementById('quizStepNum');
+  const closeBtn  = document.getElementById('quizClose');
+  if(!overlay || !bodyEl) return;
 
-  phoneInput.addEventListener('input', (e) => {
-    phoneWrap.classList.remove('phone-input--error');
-    phoneError.textContent = '';
+  const answers = { channel: 'whatsapp' };
+  let idx = 0;          // index within the current step flow
+  let done = false;
 
-    const digits = getRawDigits(e.target.value);
-    const formatted = formatPhoneDisplay(digits);
-    if(e.target.value !== formatted) e.target.value = formatted;
+  const CHANNELS = {
+    whatsapp: { name: 'WhatsApp', icon: '<svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .1 0 .7-.2 1.3Z"/></svg>' },
+    telegram: { name: 'Telegram', icon: '<svg viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm4.64 6.8-1.63 7.7c-.12.55-.44.68-.9.42l-2.5-1.84-1.2 1.16c-.14.13-.25.25-.5.25l.18-2.53 4.6-4.16c.2-.18-.05-.28-.31-.1l-5.69 3.58-2.45-.77c-.53-.17-.54-.53.11-.79l9.57-3.69c.44-.16.83.11.72.77Z"/></svg>' },
+  };
 
-    if(digits.length === 0){
-      phoneOperator.textContent = tr('Операторды тексеру үшін нөмірді енгізіңіз', 'Введите номер, чтобы определить оператора');
-      phoneOperator.className = 'form__operator form__operator--idle';
-      return;
-    }
-    if(digits.length < 3){
-      phoneOperator.textContent = '...';
-      phoneOperator.className = 'form__operator form__operator--idle';
-      return;
-    }
-    const op = detectOperator(digits);
-    if(op){
-      if(digits.length === 10){
-        phoneOperator.innerHTML = '✓ <span class="lang-en">' + op + '</span>';
-        phoneOperator.className = 'form__operator form__operator--ok';
-      } else {
-        phoneOperator.innerHTML = '<span class="lang-en">' + op + '</span> · ' + digits.length + '/10';
-        phoneOperator.className = 'form__operator form__operator--warn';
-      }
+  const isSite = () => answers.platform === 'site';
+
+  // Step flow: 1 experience, 2 platform, 3 audience, 4 link, 5 contacts
+  const FLOW = ['exp', 'platform', 'audience', 'link', 'contacts'];
+
+  function optionsFor(step){
+    if(step === 'exp')      return T.exp.options;
+    if(step === 'platform') return T.platform.options;
+    if(step === 'audience') return isSite() ? T.traffic.options : T.subs.options;
+    return [];
+  }
+  function copyFor(step){
+    if(step === 'audience') return isSite() ? T.traffic : T.subs;
+    return T[step];
+  }
+
+  const backBtn = (label) =>
+    '<button type="button" class="quiz__back" data-back>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>' +
+      label + '</button>';
+
+  function render(){
+    const step = FLOW[idx];
+    const copy = copyFor(step);
+    stepNum.textContent = String(idx + 1);
+    progress.style.width = Math.round(((idx + 1) / FLOW.length) * 100) + '%';
+
+    let html = '<div class="quiz__step">';
+    html += '<h2 class="quiz__q" id="quizTitle">' + s(copy.q) + '</h2>';
+    if(copy.sub) html += '<p class="quiz__sub">' + s(copy.sub) + '</p>';
+
+    if(step === 'link'){
+      html += '<div class="quiz__input-wrap">' +
+              '<input type="text" class="quiz__input" id="quizLink" placeholder="' + s(T.link.ph) + '">' +
+              '<div class="quiz__err" id="quizLinkErr"></div></div>';
+      html += '<div class="quiz__actions">' + backBtn(s(T.ui.back)) +
+              '<button type="button" class="btn btn--primary btn--lg quiz__next" data-next>' + s(T.ui.next) +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
+    } else if(step === 'contacts'){
+      html += '<div class="quiz__form-grid">' +
+                '<div class="quiz__field">' +
+                  '<label class="quiz__label" for="quizName">' + s(T.contacts.name) + '</label>' +
+                  '<input class="quiz__input" id="quizName" type="text" placeholder="' + s(T.contacts.namePh) + '" autocomplete="name">' +
+                  '<div class="quiz__err" id="quizNameErr"></div>' +
+                '</div>' +
+                '<div class="quiz__field">' +
+                  '<label class="quiz__label" for="quizPhone">' + s(T.contacts.phone) + '</label>' +
+                  '<div class="phone-input" id="quizPhoneWrap">' +
+                    '<div class="phone-input__prefix"><span class="phone-input__flag">' + T.flag + '</span><span>' + T.dial + '</span></div>' +
+                    '<input class="phone-input__field" id="quizPhone" type="tel" placeholder="' + T.phonePh + '" autocomplete="tel" inputmode="numeric" maxlength="14">' +
+                  '</div>' +
+                  '<div class="quiz__err" id="quizPhoneErr"></div>' +
+                  '<div class="quiz__operator quiz__operator--idle" id="quizOperator">' + s(T.contacts.opIdle) + '</div>' +
+                '</div>' +
+                '<div class="quiz__field">' +
+                  '<label class="quiz__label">' + s(T.contacts.channel) + '</label>' +
+                  '<div class="quiz__chans">' +
+                    Object.keys(CHANNELS).map(k =>
+                      '<button type="button" class="quiz__chan' + (answers.channel === k ? ' selected' : '') + '" data-chan="' + k + '">' +
+                      CHANNELS[k].icon + CHANNELS[k].name + '</button>').join('') +
+                  '</div>' +
+                '</div>' +
+              '</div>';
+      html += '<div class="quiz__actions">' + backBtn(s(T.ui.back)) +
+              '<button type="button" class="btn btn--primary btn--lg quiz__next" id="quizSubmit" data-submit>' +
+              '<span id="quizSubmitText">' + s(T.ui.submit) + '</span></button></div>';
     } else {
-      if(digits.length >= 3){
-        phoneOperator.innerHTML = tr('⚠ Оператор анықталмады', '⚠ Оператор не определён') + ' (' + digits.slice(0,3) + ')';
-        phoneOperator.className = 'form__operator form__operator--warn';
-      } else {
-        phoneOperator.innerHTML = digits.length + '/10';
-        phoneOperator.className = 'form__operator form__operator--idle';
+      const opts = optionsFor(step);
+      const cols = step === 'exp' ? 2 : 3;
+      html += '<div class="quiz__options quiz__options--' + cols + '">';
+      opts.forEach(o => {
+        const sel = answers[step] === o.v ? ' selected' : '';
+        html += '<button type="button" class="quiz__opt' + sel + '" data-value="' + o.v + '">' +
+                '<span class="quiz__radio"></span>' + s(o.label) + '</button>';
+      });
+      html += '</div>';
+      if(idx > 0) html += '<div class="quiz__actions">' + backBtn(s(T.ui.back)) + '</div>';
+    }
+
+    html += '</div>';
+    bodyEl.innerHTML = html;
+    if(step === 'contacts') wireContacts();
+  }
+
+  function wireContacts(){
+    const phone = document.getElementById('quizPhone');
+    const wrap  = document.getElementById('quizPhoneWrap');
+    const op    = document.getElementById('quizOperator');
+
+    phone.addEventListener('input', (e) => {
+      wrap.classList.remove('phone-input--error');
+      document.getElementById('quizPhoneErr').textContent = '';
+      const digits = getRawDigits(e.target.value);
+      const formatted = formatPhoneDisplay(digits);
+      if(e.target.value !== formatted) e.target.value = formatted;
+
+      if(!digits.length){
+        op.textContent = s(T.contacts.opIdle);
+        op.className = 'quiz__operator quiz__operator--idle';
+        return;
       }
-    }
-  });
+      const detected = detectOperator(digits);
+      if(detected){
+        const full = digits.length === T.phoneLen;
+        op.innerHTML = (full ? '✓ ' : '') + '<span class="lang-en">' + detected + '</span>' +
+                       (full ? '' : ' · ' + digits.length + '/' + T.phoneLen);
+        op.className = 'quiz__operator quiz__operator--' + (full ? 'ok' : 'warn');
+      } else {
+        op.textContent = digits.length + '/' + T.phoneLen;
+        op.className = 'quiz__operator quiz__operator--idle';
+      }
+    });
+    phone.addEventListener('keydown', (e) => {
+      if(e.ctrlKey || e.metaKey || e.altKey) return;
+      if(['Backspace','Delete','Tab','Enter','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key)) return;
+      if(!/^\d$/.test(e.key)) e.preventDefault();
+    });
+    document.getElementById('quizName').addEventListener('input', (e) => {
+      e.target.classList.remove('quiz__input--error');
+      document.getElementById('quizNameErr').textContent = '';
+    });
+  }
 
-  phoneInput.addEventListener('keydown', (e) => {
-    if(e.ctrlKey || e.metaKey || e.altKey) return;
-    if(['Backspace','Delete','Tab','Enter','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key)) return;
-    if(!/^\d$/.test(e.key)) e.preventDefault();
-  });
+  function showThanks(){
+    done = true;
+    progress.style.width = '100%';
+    const m = CHANNELS[answers.channel].name;
+    bodyEl.innerHTML =
+      '<div class="quiz__thanks">' +
+        '<div class="quiz__thanks-ico">✓</div>' +
+        '<h2 class="quiz__thanks-title">' + s(T.thanks.title) + '</h2>' +
+        '<p class="quiz__thanks-text">' + s(T.thanks.text).replace('{m}', m) + '</p>' +
+        '<p class="quiz__thanks-hint">' + s(T.thanks.hint).replace('{m}', m) + '</p>' +
+      '</div>';
+  }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  async function submit(){
+    const nameEl  = document.getElementById('quizName');
+    const phoneEl = document.getElementById('quizPhone');
+    const name    = nameEl.value.trim();
 
-    const name = nameInput.value.trim();
-    const phoneRaw = phoneInput.value.trim();
-
-    let valid = true;
+    let ok = true;
     if(name.length < 2){
-      nameInput.classList.add('form__input--error');
-      nameError.textContent = tr('Толық атыңызды жазыңыз (кемінде 2 әріп)', 'Укажите ваше имя (минимум 2 буквы)');
-      valid = false;
+      nameEl.classList.add('quiz__input--error');
+      document.getElementById('quizNameErr').textContent = s(T.contacts.nameErr);
+      ok = false;
     }
-
-    const phoneCheck = validatePhone(phoneRaw);
-    if(!phoneCheck.valid){
-      phoneWrap.classList.add('phone-input--error');
-      phoneError.textContent = phoneCheck.error;
-      valid = false;
+    const check = validatePhone(phoneEl.value.trim());
+    if(!check.valid){
+      document.getElementById('quizPhoneWrap').classList.add('phone-input--error');
+      document.getElementById('quizPhoneErr').textContent = check.error;
+      ok = false;
     }
-    if(!valid) return;
+    if(!ok) return;
 
-    const phone = normalizePhone(phoneRaw);
+    const btn = document.getElementById('quizSubmit');
+    const btnText = document.getElementById('quizSubmitText');
+    btn.disabled = true;
+    btnText.textContent = s(T.ui.sending);
+
+    const phone = normalizePhone(phoneEl.value.trim());
     const leadId = genUUID();
     const utm = getUTMParams();
 
-    submitBtn.disabled = true;
-    submitText.textContent = tr('Жіберілуде...', 'Отправляем...');
-
     if(typeof fbq === 'function'){
-      fbq('track', 'Lead', {
-        content_name: 'KZ Agent Application',
-        content_category: 'agent-signup',
-      }, { eventID: leadId });
+      fbq('track', 'Lead', { content_name: CONFIG.GEO + ' Agent Application', content_category: 'agent-signup' }, { eventID: leadId });
     }
 
     const getCookie = (n) => {
@@ -1073,8 +1265,12 @@ function validatePhone(v){
       lead_id: leadId,
       name: name,
       phone: phone,
-      telegram: '',
+      channel: answers.channel,
       geo: CONFIG.GEO,
+      quiz_experience: answers.exp || '',
+      quiz_platform: answers.platform || '',
+      quiz_audience: answers.audience || '',
+      quiz_link: answers.link || '',
       utm_source: utm.utm_source,
       utm_campaign: utm.utm_campaign,
       utm_medium: utm.utm_medium,
@@ -1087,36 +1283,92 @@ function validatePhone(v){
       fbc: getCookie('_fbc'),
     };
 
-    const sendPromise = CONFIG.APPS_SCRIPT_URL && !CONFIG.APPS_SCRIPT_URL.includes('__')
+    const send = CONFIG.APPS_SCRIPT_URL && !CONFIG.APPS_SCRIPT_URL.includes('__')
       ? fetch(CONFIG.APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
+          method: 'POST', mode: 'no-cors',
           headers: {'Content-Type': 'text/plain;charset=utf-8'},
           body: JSON.stringify(payload),
         }).catch(err => console.warn('Apps Script POST failed:', err))
       : Promise.resolve();
 
-    await Promise.race([sendPromise, new Promise(r => setTimeout(r, 2000))]);
+    await Promise.race([send, new Promise(r => setTimeout(r, 2000))]);
+    showThanks();
 
-    form.style.display = 'none';
-    thanksScreen.hidden = false;
-    thanksScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Open the manager chat in the messenger the user picked
+    let msg = s(T.waMsg) + name + '. ' + phone;
+    const tags = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term']
+      .map(k => utm[k] ? k.replace('utm_','') + ':' + utm[k] : '').filter(Boolean);
+    if(answers.platform) tags.unshift('platform:' + answers.platform);
+    if(tags.length) msg += ' [' + tags.join('|') + ']';
 
-    // Redirect to manager WhatsApp with a prefilled message (+ UTM tags for tracking)
-    if (CONFIG.WHATSAPP_PHONE && !/X/i.test(CONFIG.WHATSAPP_PHONE)) {
-      let msg = tr(
-        'AGENT! Мен Қазақстанда MELBET агенті болғым келеді. Атым: ',
-        'AGENT! Хочу стать агентом MELBET в Казахстане. Имя: ') + name + '. ' + tr('Телефон', 'Телефон') + ': ' + phone;
-      const tags = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term']
-        .map(k => utm[k] ? k.replace('utm_','') + ':' + utm[k] : '')
-        .filter(Boolean);
-      if (tags.length) msg += ' [' + tags.join('|') + ']';
-      setTimeout(() => {
-        window.location.href = 'https://wa.me/' + CONFIG.WHATSAPP_PHONE + '?text=' + encodeURIComponent(msg);
-      }, 1200);
+    let target = '';
+    if(answers.channel === 'telegram'){
+      if(CONFIG.TELEGRAM_USERNAME && !/X/i.test(CONFIG.TELEGRAM_USERNAME))
+        target = 'https://t.me/' + CONFIG.TELEGRAM_USERNAME + '?text=' + encodeURIComponent(msg);
+    } else if(CONFIG.WHATSAPP_PHONE && !/X/i.test(CONFIG.WHATSAPP_PHONE)){
+      target = 'https://wa.me/' + CONFIG.WHATSAPP_PHONE + '?text=' + encodeURIComponent(msg);
     }
+    if(target) setTimeout(() => { window.location.href = target; }, 1400);
+  }
+
+  // ---- interactions ----
+  bodyEl.addEventListener('click', (e) => {
+    const chan = e.target.closest('[data-chan]');
+    if(chan){
+      answers.channel = chan.dataset.chan;
+      bodyEl.querySelectorAll('[data-chan]').forEach(c => c.classList.toggle('selected', c === chan));
+      return;
+    }
+    const opt = e.target.closest('.quiz__opt');
+    if(opt){
+      answers[FLOW[idx]] = opt.dataset.value;
+      opt.classList.add('selected');
+      setTimeout(() => { idx = Math.min(idx + 1, FLOW.length - 1); render(); }, 180);
+      return;
+    }
+    if(e.target.closest('[data-back]')){
+      idx = Math.max(idx - 1, 0);
+      render();
+      return;
+    }
+    if(e.target.closest('[data-next]')){
+      const input = document.getElementById('quizLink');
+      const val = input.value.trim();
+      if(val.length < 3){
+        input.classList.add('quiz__input--error');
+        document.getElementById('quizLinkErr').textContent = s(T.link.err);
+        return;
+      }
+      answers.link = val;
+      idx = Math.min(idx + 1, FLOW.length - 1);
+      render();
+      return;
+    }
+    if(e.target.closest('[data-submit]')) submit();
   });
+
+  function open(){
+    if(done){ done = false; idx = 0; }
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    render();
+  }
+  function close(){
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-open-quiz]').forEach(b => b.addEventListener('click', open));
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+
+  // re-render current step when the language is switched
+  window.addEventListener('langchange', () => { if(overlay.classList.contains('open') && !done) render(); });
 })();
+
 
 // ===== Language switch (KK / RU) =====
 (function(){
@@ -1199,6 +1451,10 @@ function validatePhone(v){
     ['.form__hint', 'Отправляя заявку, вы соглашаетесь на то, что менеджер свяжется с вами в WhatsApp.'],
     ['.thanks-screen__title', 'Спасибо!'],
     ['.thanks-screen__text', 'Мы получили вашу заявку.<br>Менеджер свяжется с вами в WhatsApp в ближайшее время.'],
+    [".cta-card__title", "Готовы начать?<br><span class=\"accent\">Подайте заявку прямо сейчас!</span>"],
+    [".cta-card__text", "Заполните короткую анкету — наш менеджер свяжется с вами в WhatsApp или Telegram в течение нескольких минут и обсудит условия сотрудничества."],
+    ["[data-open-quiz] span", "Подать заявку"],
+    [".cta-card__bonus span", "Бонус для новых партнеров: увеличение RS в течение первых 30 дней."],
     ['.footer__brand-text', 'Агентская программа · Казахстан'],
     ['.footer__disclaim > div:last-child', 'Этот сайт предназначен только для лиц старше 18 лет. Ставки могут вызывать зависимость — играйте ответственно. Эта агентская программа предназначена только для Affiliates и Media Buyers. Информация на странице не является публичной офертой.'],
   ];
@@ -1232,6 +1488,7 @@ function validatePhone(v){
     document.querySelectorAll('.lang-switch__btn').forEach(b => {
       b.classList.toggle('lang-switch__btn--active', b.dataset.lang === lang);
     });
+    window.dispatchEvent(new Event('langchange'));
     try { localStorage.setItem('lang_kz', lang); } catch(e){}
   }
 
