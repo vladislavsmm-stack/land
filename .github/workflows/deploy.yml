@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+
+# Restored: the run history shows this mirror DOES trigger the Pages build.
+# On 2026-07-29 this workflow pushed main -> gh-pages at 11:08:32 and the
+# "pages build and deployment" job ran at 11:09:48. Direct pushes to
+# gh-pages from a session credential do not trigger it, which is why the
+# published site went stale after this workflow was removed.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mirror main to gh-pages (Pages deploys from gh-pages)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push origin HEAD:gh-pages --force

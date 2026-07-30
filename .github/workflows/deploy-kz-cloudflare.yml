@@ -1,0 +1,26 @@
+name: Deploy KZ landing to Cloudflare Pages
+
+# Publishes the Kazakh landing (kz/) as its own Cloudflare Pages project,
+# so it gets a dedicated subdomain (mlb-kz.pages.dev) instead of living
+# under a path of the shared site.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'kz/**'
+      - '.github/workflows/deploy-kz-cloudflare.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish kz/ to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy kz --project-name=mlb-kz --branch=main
