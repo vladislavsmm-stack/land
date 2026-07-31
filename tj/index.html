@@ -445,8 +445,9 @@ input{font-family:inherit;font-size:inherit;color:inherit}
   font-family:'Manrope',sans-serif;
 }
 
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1)}
-.reveal.in{opacity:1;transform:none}
+/* Fail open: content is visible unless JS confirms it can animate it. */
+.js-anim .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1)}
+.js-anim .reveal.in{opacity:1;transform:none}
 .reveal[data-d="1"]{transition-delay:.08s}
 .reveal[data-d="2"]{transition-delay:.16s}
 .reveal[data-d="3"]{transition-delay:.24s}
@@ -456,7 +457,7 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-  .reveal{opacity:1;transform:none}
+  .js-anim .reveal{opacity:1;transform:none}
 }
 
 /* Language switch */
@@ -840,6 +841,36 @@ input{font-family:inherit;font-size:inherit;color:inherit}
 
 <script>
 
+// Reveal — fail open. The hiding class goes on only after the observer is
+// live, and a watchdog un-hides anything the observer missed, so no script
+// problem can leave the page blank.
+(function(){
+try{
+  var root = document.documentElement;
+  try{
+    if(!('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('.reveal');
+    if(!els.length) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+    root.className += ' js-anim';
+    for(var i=0;i<els.length;i++) io.observe(els[i]);
+    setTimeout(function(){
+      var stuck = document.querySelectorAll('.reveal:not(.in)');
+      for(var j=0;j<stuck.length;j++){
+        var r = stuck[j].getBoundingClientRect();
+        if(r.top < (window.innerHeight||0) && r.bottom > 0) stuck[j].classList.add('in');
+      }
+    }, 1500);
+  }catch(err){
+    root.className = root.className.replace(/\bjs-anim\b/,'');
+  }
+}catch(err){ if(window.console) console.error(err); }
+})();
+
 function tr(kk, ru){ return (window.__lang === 'ru' && ru) ? ru : kk; }
 
 const CONFIG = {
@@ -856,22 +887,10 @@ const CONFIG = {
   if (t) CONFIG.TELEGRAM_USERNAME = t.replace(/^@/, '');
 }
 
-// Reveal
-(function(){
-  if(!('IntersectionObserver' in window)){
-    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
-    return;
-  }
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
-    });
-  },{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-})();
 
 // Parallax orbs
 (function(){
+try{
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   const orbs = document.querySelectorAll('.orb');
   let raf;
@@ -886,6 +905,7 @@ const CONFIG = {
       });
     });
   },{passive:true});
+}catch(err){ if(window.console) console.error(err); }
 })();
 
 // UTM
@@ -952,6 +972,7 @@ window.QUIZ_I18N = {"second": "ru", "flag": "🇹🇯", "dial": "+992", "phonePh
 
 // ===== Quiz (multi-step application) =====
 (function(){
+try{
   const T = window.QUIZ_I18N;
   const L2 = T.second;                     // secondary language code
   const s = (pair) => (window.__lang === L2 ? pair[1] : pair[0]);
@@ -1251,11 +1272,13 @@ window.QUIZ_I18N = {"second": "ru", "flag": "🇹🇯", "dial": "+992", "phonePh
 
   // re-render current step when the language is switched
   window.addEventListener('langchange', () => { if(overlay.classList.contains('open') && !done) render(); });
+}catch(err){ if(window.console) console.error(err); }
 })();
 
 
 // ===== Language switch (KK / RU) =====
 (function(){
+try{
   const RU = [
     ['.eyebrow', 'MLB Партнёрская программа · Таджикистан 🇹🇯'],
     ['.hero__title', '<span class="accent">Зарабатывайте с глобальным брендом</span> в гемблинг-вертикали'],
@@ -1348,6 +1371,7 @@ window.QUIZ_I18N = {"second": "ru", "flag": "🇹🇯", "dial": "+992", "phonePh
     initial = q || localStorage.getItem('lang_tj') || 'tg';
   } catch(e){}
   if(initial === 'ru') apply('ru');
+}catch(err){ if(window.console) console.error(err); }
 })();
 
 </script>
