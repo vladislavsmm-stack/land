@@ -187,6 +187,17 @@ td.hi{background:rgba(201,168,122,.14)}
     </div>
   </div>
 
+  <div class="sec-title">Полная сводка: факт по месяцам и Δ к предыдущему</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr id="tblHead"></tr>
+      </thead>
+      <tbody id="tblBody"></tbody>
+    </table>
+  </div>
+  <div class="mini">Значение — факт месяца, под ним Δ к предыдущему месяцу. Пустая ячейка — в книге нет факта. Колонка выбранного месяца подсвечена.</div>
+
   <div class="sec-title">Аудитория и охват</div>
   <div class="grid g-2">
     <div class="card">
@@ -236,17 +247,6 @@ td.hi{background:rgba(201,168,122,.14)}
     <div class="hint">В процентах выполнения плана: 100% — план выполнен ровно. Для затрат зелёный — это экономия. Планы на январь–февраль в книге не заполнены. Шкала растянута выбросами вроде реакций Facebook.</div>
     <div class="chart-box h-300"><canvas id="pfChart"></canvas></div>
   </div>
-
-  <div class="sec-title">Полная сводка: факт по месяцам и Δ к предыдущему</div>
-  <div class="tbl-wrap">
-    <table>
-      <thead>
-        <tr id="tblHead"></tr>
-      </thead>
-      <tbody id="tblBody"></tbody>
-    </table>
-  </div>
-  <div class="mini">Значение — факт месяца, под ним Δ к предыдущему месяцу. Пустая ячейка — в книге нет факта. Колонка выбранного месяца подсвечена.</div>
 
   <div class="sec-title">Основные моменты</div>
   <div class="insights" id="insights"></div>
