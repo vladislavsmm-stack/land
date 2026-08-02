@@ -241,13 +241,6 @@ td.hi{background:rgba(201,168,122,.14)}
     </div>
   </div>
 
-  <div class="sec-title">План против факта — выбранный месяц</div>
-  <div class="card" style="margin-bottom:16px">
-    <h2>Plan vs Fact <span class="pill" id="pfMonth"></span></h2>
-    <div class="hint">В процентах выполнения плана: 100% — план выполнен ровно. Для затрат зелёный — это экономия. Планы на январь–февраль в книге не заполнены. Шкала растянута выбросами вроде реакций Facebook.</div>
-    <div class="chart-box h-300"><canvas id="pfChart"></canvas></div>
-  </div>
-
   <div class="sec-title">Основные моменты</div>
   <div class="insights" id="insights"></div>
 
@@ -391,7 +384,6 @@ function renderKPI(){
     return `<div class="kpi ${cls}"><div class="label">${c.l}</div><div class="val">${c.v}</div><div class="sub">${dtxt}<br>${c.s}</div></div>`;
   }).join('');
   document.getElementById('kpiNote').textContent = `${MFULL[SEL]} 2026 · Δ — к ${MFULL[SEL-1].toLowerCase()}. Значения — колонка Fact из книги.`;
-  document.getElementById('pfMonth').textContent = MFULL[SEL];
 }
 
 /* ---------- топ движений ---------- */
@@ -501,26 +493,6 @@ function renderFin(){
     scales:{x:gridX,y:gridY}}});
 }
 
-function renderPF(){
-  const labels=[], vals=[], colors=[];
-  Object.keys(D).forEach(k=>{
-    const met = D[k].kind==='social'?SOC_MET:FIN_MET;
-    met.forEach(m=>{
-      const p=D[k][m].p[SEL], f=D[k][m].f[SEL];
-      if(!has(p)||!has(f)||!p) return;
-      const v=f/p*100;
-      labels.push(`${D[k].label.replace('Facebook ESPORTS','FB Esports').replace('Finance Conv TG','Fin. TG').replace('Finance Brand','Fin. Brand')} · ${MET[m].label}`);
-      vals.push(+v.toFixed(1));
-      colors.push(m==='spend' ? (v<=100?'#2e9e6b':'#d9534f') : (v>=100?'#2e9e6b':(v>=80?'#d98b2b':'#d9534f')));
-    });
-  });
-  if(!labels.length){ labels.push('Планов на этот месяц в книге нет'); vals.push(0); colors.push('#e3e8ef'); }
-  mk('pfChart',{type:'bar',data:{labels,datasets:[{data:vals,backgroundColor:colors,borderRadius:4,barThickness:14}]},
-    options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},
-      tooltip:{callbacks:{label:c=>`${c.parsed.x}% от плана`}}},
-      scales:{x:{...gridY,ticks:{callback:v=>v+'%'}},y:{...gridX,ticks:{font:{size:10.5}}}}}});
-}
-
 /* ---------- сводная таблица ---------- */
 function renderTable(){
   document.getElementById('tblHead').innerHTML =
@@ -603,7 +575,7 @@ document.getElementById('dq').innerHTML = DQ.map(x=>`<div>${x}</div>`).join('');
 
 /* ---------- init ---------- */
 function renderAll(){
-  renderKPI(); renderMovers(); renderMoM(); renderPF(); renderTable(); renderInsights();
+  renderKPI(); renderMovers(); renderMoM(); renderTable(); renderInsights();
 }
 lineChart('folChart','followers','folLegend');
 lineChart('reachChart','reach','reachLegend');
